@@ -147,7 +147,7 @@ const Footer = () => {
         {/* Copyright */}
         <div className="border-t border-primary-foreground/10 mt-12 pt-8 text-center">
           <p className="text-primary-foreground/40 text-sm font-body">
-            © 2024 Link-Work. All rights reserved.
+            © 2025 Link-Work. All rights reserved.
           </p>
         </div>
       </div>
