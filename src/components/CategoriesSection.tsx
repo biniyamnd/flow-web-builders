@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { 
   Palette, 
   Code, 
@@ -21,6 +22,8 @@ const categories = [
 ];
 
 const CategoriesSection = () => {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
   return (
     <section id="categories" className="py-20 bg-background">
       <div className="container mx-auto px-6">
@@ -37,10 +40,15 @@ const CategoriesSection = () => {
           {categories.map((category, index) => (
             <div
               key={category.name}
-              className="group bg-card rounded-2xl p-6 shadow-card hover:shadow-lg transition-all duration-300 cursor-pointer hover:-translate-y-1"
-              style={{ animationDelay: `${index * 50}ms` }}
+              className={`group bg-card rounded-2xl p-6 shadow-card transition-all duration-300 cursor-pointer ${
+                hoveredIndex === index ? "shadow-lg -translate-y-2 scale-105" : "hover:shadow-lg hover:-translate-y-1"
+              }`}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
             >
-              <div className={`w-14 h-14 rounded-xl ${category.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+              <div className={`w-14 h-14 rounded-xl ${category.color} flex items-center justify-center mb-4 transition-transform duration-300 ${
+                hoveredIndex === index ? "scale-110 rotate-3" : "group-hover:scale-110"
+              }`}>
                 <category.icon className="w-7 h-7" />
               </div>
               <h3 className="text-lg font-semibold text-card-foreground mb-1 font-body">
