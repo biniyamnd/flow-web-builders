@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Search, ArrowRight, Star, Users, Briefcase } from "lucide-react";
+import { ArrowRight, Star, Users, Briefcase } from "lucide-react";
 
 const HeroSection = () => {
   return (
@@ -28,19 +28,11 @@ const HeroSection = () => {
               discover skilled professionals ready to bring your vision to life.
             </p>
             
-            {/* Search Bar */}
-            <div className="bg-primary-foreground rounded-2xl p-2 flex flex-col sm:flex-row gap-2 shadow-lg mb-8 animate-fade-up delay-300">
-              <div className="flex-1 flex items-center gap-3 px-4">
-                <Search className="w-5 h-5 text-muted-foreground" />
-                <input
-                  type="text"
-                  placeholder="What service are you looking for?"
-                  className="w-full py-3 bg-transparent outline-none text-foreground font-body placeholder:text-muted-foreground"
-                />
-              </div>
-              <Button variant="hero" size="lg" className="gap-2">
-                Search
-                <ArrowRight className="w-4 h-4" />
+            {/* CTA Button */}
+            <div className="mb-8 animate-fade-up delay-300">
+              <Button variant="hero" size="xl" className="gap-2">
+                Get Started
+                <ArrowRight className="w-5 h-5" />
               </Button>
             </div>
             

@@ -26,15 +26,10 @@ const CTASection = () => {
               Start your free trial today, no credit card required.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="hero" size="xl" className="gap-2">
-                Get Started Free
-                <ArrowRight className="w-5 h-5" />
-              </Button>
-              <Button variant="hero-outline" size="xl">
-                Watch Demo
-              </Button>
-            </div>
+            <Button variant="hero" size="xl" className="gap-2">
+              Get Started
+              <ArrowRight className="w-5 h-5" />
+            </Button>
           </div>
         </div>
       </div>
