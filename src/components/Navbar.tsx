@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -64,12 +65,16 @@ const Navbar = () => {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-4">
-            <Button variant="hero-outline" size="default" className="hover:scale-105 transition-transform">
-              Sign In
-            </Button>
-            <Button variant="hero" size="default" className="hover:scale-105 transition-transform">
-              Get Started
-            </Button>
+            <Link to="/auth">
+              <Button variant="hero-outline" size="default" className="hover:scale-105 transition-transform">
+                Sign In
+              </Button>
+            </Link>
+            <Link to="/auth?tab=register">
+              <Button variant="hero" size="default" className="hover:scale-105 transition-transform">
+                Get Started
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -107,12 +112,16 @@ const Navbar = () => {
                 Testimonials
               </a>
               <div className="flex flex-col gap-3 pt-4">
-                <Button variant="hero-outline" className="w-full">
-                  Sign In
-                </Button>
-                <Button variant="hero" className="w-full">
-                  Get Started
-                </Button>
+                <Link to="/auth" onClick={() => setIsOpen(false)}>
+                  <Button variant="hero-outline" className="w-full">
+                    Sign In
+                  </Button>
+                </Link>
+                <Link to="/auth?tab=register" onClick={() => setIsOpen(false)}>
+                  <Button variant="hero" className="w-full">
+                    Get Started
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
