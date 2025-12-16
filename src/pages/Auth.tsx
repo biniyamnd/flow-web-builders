@@ -1,13 +1,16 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Building2, Briefcase, Eye, EyeOff, ArrowLeft } from "lucide-react";
 import { Link, useSearchParams } from "react-router-dom";
+import { toast } from "@/hooks/use-toast";
 
 type UserType = "institution" | "freelancer" | null;
 
 const Auth = () => {
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const defaultTab = searchParams.get("tab") === "register" ? "register" : "login";
   
@@ -17,7 +20,7 @@ const Auth = () => {
   const [userType, setUserType] = useState<UserType>(null);
   
   // Form states
-  const [loginForm, setLoginForm] = useState({ email: "", password: "" });
+  const [loginForm, setLoginForm] = useState({ email: "", password: "", userType: null as UserType });
   const [registerForm, setRegisterForm] = useState({
     name: "",
     email: "",
@@ -27,20 +30,26 @@ const Auth = () => {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Login:", loginForm);
+    if (!loginForm.userType) {
+      toast({ title: "Please select your account type", variant: "destructive" });
+      return;
+    }
+    toast({ title: "Login successful!" });
+    navigate(loginForm.userType === "institution" ? "/institution" : "/freelancer");
   };
 
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
     if (!userType) {
-      alert("Please select your account type");
+      toast({ title: "Please select your account type", variant: "destructive" });
       return;
     }
     if (registerForm.password !== registerForm.confirmPassword) {
-      alert("Passwords do not match");
+      toast({ title: "Passwords do not match", variant: "destructive" });
       return;
     }
-    console.log("Register:", { ...registerForm, userType });
+    toast({ title: "Account created successfully!" });
+    navigate(userType === "institution" ? "/institution" : "/freelancer");
   };
 
   return (
@@ -138,6 +147,42 @@ const Auth = () => {
                       className="absolute right-3 top-1/2 -translate-y-1/2 text-primary-foreground/50 hover:text-primary-foreground"
                     >
                       {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    </button>
+                  </div>
+                </div>
+
+                {/* User Type Selection for Login */}
+                <div className="space-y-3">
+                  <Label className="text-primary-foreground/80">I am a...</Label>
+                  <div className="grid grid-cols-2 gap-4">
+                    <button
+                      type="button"
+                      onClick={() => setLoginForm({ ...loginForm, userType: "institution" })}
+                      className={`p-3 rounded-xl border-2 transition-all ${
+                        loginForm.userType === "institution"
+                          ? "border-coral bg-coral/20 shadow-lg"
+                          : "border-primary-foreground/20 hover:border-primary-foreground/40 bg-primary-foreground/5"
+                      }`}
+                    >
+                      <Building2 className={`w-6 h-6 mx-auto mb-1 ${loginForm.userType === "institution" ? "text-coral" : "text-primary-foreground/60"}`} />
+                      <p className={`font-body text-sm font-medium ${loginForm.userType === "institution" ? "text-primary-foreground" : "text-primary-foreground/80"}`}>
+                        Institution
+                      </p>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setLoginForm({ ...loginForm, userType: "freelancer" })}
+                      className={`p-3 rounded-xl border-2 transition-all ${
+                        loginForm.userType === "freelancer"
+                          ? "border-coral bg-coral/20 shadow-lg"
+                          : "border-primary-foreground/20 hover:border-primary-foreground/40 bg-primary-foreground/5"
+                      }`}
+                    >
+                      <Briefcase className={`w-6 h-6 mx-auto mb-1 ${loginForm.userType === "freelancer" ? "text-coral" : "text-primary-foreground/60"}`} />
+                      <p className={`font-body text-sm font-medium ${loginForm.userType === "freelancer" ? "text-primary-foreground" : "text-primary-foreground/80"}`}>
+                        Freelancer
+                      </p>
                     </button>
                   </div>
                 </div>
